@@ -1,10 +1,9 @@
 <?php
-    include_once __DIR__.'/LaneWeChat/lanewechat.php';
     include_once "jssdk.php";
     include_once "common.php";
     
     // config jssdk
-    $jssdk = new JSSDK(WECHAT_APPID, WECHAT_APPSECRET);
+    $jssdk = new JSSDK("wx575cf8308f69672f", "2c65aaf7ab9b6ad417c26927b0a6070d");
     $signPackage = $jssdk->GetSignPackage();
 ?>
 <!doctype html>

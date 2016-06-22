@@ -1,6 +1,5 @@
 <?php
-    use  LaneWeChat\Core\Media;
-    include_once __DIR__.'/LaneWeChat/lanewechat.php';
+    include_once "wechat_conf.php";
     define('_SAVE_PATH','./static/upload/');
     include_once "common.php";
     include_once "sql_conf.php";
@@ -11,7 +10,9 @@
     if(isset($_GET["serverId"])){
         $mediaId = $_GET["serverId"];
         // 获取素材
-        $media = Media::download($mediaId);
+        $temporary = $app->material_temporary;
+        $media = $temporary->getStream($mediaId);
+
         // var_dump($media);exit();
         $dateDir = date("Ymd");
         $fname = md5(time());
@@ -21,7 +22,7 @@
         if(!file_exists($tmpdir)) { mkdir($tmpdir,0777); }
         
         if(!file_exists($selfile)){
-            if(file_put_contents("./{$fname}", $media)){
+            if(file_put_contents($selfile, $media)){
                 nt_write_log(__FILE__, __LINE__, 'print variants [ok]', "DEBUG");
                 $ret['status'] = 0;
                 $ret['msg'] = "upload success!";
